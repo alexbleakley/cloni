@@ -1,0 +1,11 @@
+{"task_id": 1, "question_count": 114, "affirmative_correct_count": 1, "negated_correct_count": 0}
+{"task_id": 2, "question_count": 114, "affirmative_correct_count": 12, "negated_correct_count": 8}
+{"task_id": 3, "question_count": 114, "affirmative_correct_count": 54, "negated_correct_count": 58}
+{"task_id": 4, "question_count": 114, "affirmative_correct_count": 7, "negated_correct_count": 4}
+{"task_id": 5, "question_count": 114, "affirmative_correct_count": 32, "negated_correct_count": 31}
+{"task_id": 6, "question_count": 114, "affirmative_correct_count": 12, "negated_correct_count": 3}
+{"task_id": 7, "question_count": 114, "affirmative_correct_count": 15, "negated_correct_count": 9}
+{"task_id": 8, "question_count": 114, "affirmative_correct_count": 4, "negated_correct_count": 2}
+{"task_id": 9, "question_count": 114, "affirmative_correct_count": 10, "negated_correct_count": 27}
+{"task_id": 10, "question_count": 114, "affirmative_correct_count": 1, "negated_correct_count": 1}
+{"task_id": "totals", "question_count": 1140, "affirmative_correct_count": 148, "negated_correct_count": 143}

@@ -1,0 +1,8 @@
+.env
+.venv
+__pycache__
+*.pyc
+*Zone.Identifier
+data/mmlu
+logs
+tmp
