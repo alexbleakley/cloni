@@ -34,6 +34,7 @@ def generate_ai21_completion(
     temperature: int = 0.7,
     max_tokens: int = 16,
 ) -> str:
+    """Send prompt to the AI21 completion API and return the completion."""
     logging.debug(
         "Generating completion. "
         f"model={model}, temperature={temperature}, maxTokens={max_tokens}."
@@ -78,6 +79,10 @@ def generate_anthropic_completion(
     temperature: int = 1, 
     max_tokens: int = 256,    
 ) -> str:
+    """Send prompt to the Anthropic completions API and return the completion.
+    
+    The prompt argument will be converted into the Human/Assistant format required by Anthropic.
+    """
     logging.debug(
         "Generating completion. " 
         f"model={model}, temperature={temperature}, max_tokens_to_sample={max_tokens}."
@@ -128,6 +133,10 @@ def generate_cohere_completion(
     temperature: int = 0.75, 
     max_tokens: int = 20,    
 ) -> str:
+    """Send prompt to the Cohere generate API and return the completion.
+    
+    To avoid hitting rate limits, this function will wait 12 seconds before sending the request.
+    """
     logging.debug(f"Waiting 12 seconds (Cohere trial rate limit = 5 calls/minute)...")
     time.sleep(12)
     logging.debug(
@@ -172,6 +181,12 @@ def generate_openai_completion(
     temperature: int = 1, 
     max_tokens: int = 16,    
 ) -> str:
+    """Send prompt to one of the OpenAI completion APIs and return the completion.
+    
+    Uses the legacy Completion API or the newer ChatCompletion API according to the model.
+    If using the ChatCompletion API, the prompt argument will be converted into a list of messages 
+    and the response will be extracted from the response message.
+    """
     logging.debug(
         "Generating completion. " 
         f"model={model}, temperature={temperature}, max_tokens={max_tokens}."
@@ -234,6 +249,7 @@ def generate_openai_completion(
 
 
 def generate_completion(prompt: str, provider: str, model: str, **kwargs) -> str:
+    """Send prompt to the specified provider's completion API and return the completion."""
     if provider == "openai":
         return generate_openai_completion(prompt, model, **kwargs)
     elif provider == "anthropic":

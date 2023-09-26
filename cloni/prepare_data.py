@@ -15,6 +15,7 @@ MMLU_CHOICES = ["A", "B", "C", "D"]
 
 
 def create_prompt(task: Task, question: dict, format: str) -> str:
+    """Create a formatted prompt for a specific task and question."""
     if format == "affirmative":
         constraint = task.constraint_affirmative
     elif format == "negated":
@@ -39,6 +40,7 @@ def create_prompt(task: Task, question: dict, format: str) -> str:
 
 
 def prepare_questions():
+    """Select the first two questions from each MMLU topic and save to questions file."""
     questions = []
     question_id = 1
     mmlu_test_dir = os.fsencode(MMLU_TEST_PATH)
@@ -65,6 +67,7 @@ def prepare_questions():
 
 
 def prepare_prompts(prompt_types: List[str] = ["affirmative", "negated"]):
+    """Create formatted prompts and write to prompts files, for each task."""
     with open(CLONI_QUESTIONS_PATH) as questions_file:
         questions = []
         for line in questions_file:
@@ -92,6 +95,7 @@ def prepare_prompts(prompt_types: List[str] = ["affirmative", "negated"]):
 
 
 def prepare_constraints():
+    """Create response constraints and write to constraints files, for each task."""
     with open(CLONI_QUESTIONS_PATH) as questions_file:
         questions = []
         for line in questions_file:
@@ -116,6 +120,7 @@ def prepare_constraints():
 
 
 def prepare_data(prompt_types: List[str] = ["affirmative", "negated"]):
+    """Use questions from MMLU and tasks from tasks.py to create the CLONI test set."""
     prepare_questions()
     prepare_prompts(prompt_types)
     prepare_constraints()

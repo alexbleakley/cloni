@@ -19,6 +19,11 @@ CLONI_ALL_MODEL_PERFORMANCE_PATH = "results/summary_all-models.csv"
 
 
 def get_responses(provider: str, model: str, task: Task, prompt_type: str):
+    """Generate responses for a specific model, task, and prompt_type.
+     
+    Sends requests to the provider's completion API for each task instance 
+    and saves responses in a responses file.
+    """
     prompts_file_path = CLONI_PROMPTS_PATH.format(**vars())
     responses_file_path = CLONI_RESPONSES_PATH.format(**vars())
     os.makedirs(os.path.dirname(responses_file_path), exist_ok=True)
@@ -34,6 +39,7 @@ def get_responses(provider: str, model: str, task: Task, prompt_type: str):
 
 
 def evaluate_response(response_text: str, constraint_regex: str) -> int:
+    """Evaluate whether response_text matches constraint_regex and return 0 or 1."""
     pattern = re.compile(constraint_regex)
     if pattern.search(response_text):
         return 1
@@ -42,6 +48,11 @@ def evaluate_response(response_text: str, constraint_regex: str) -> int:
 
 
 def evaluate_responses(provider: str, model: str, task: Task, prompt_type: str):
+    """Evaluate responses for a specific model, task, and prompt_type.
+     
+    Calls evaluate_response for each task instance 
+    and saves results in a results file.
+    """
     responses_file_path = CLONI_RESPONSES_PATH.format(**vars())
     constraints_file_path = CLONI_CONSTRAINTS_PATH.format(**vars())
     results_file_path = CLONI_RESULTS_PATH.format(**vars())
@@ -58,6 +69,9 @@ def evaluate_responses(provider: str, model: str, task: Task, prompt_type: str):
 
 
 def summarize_task_results(provider: str, model: str, task: Task, prompt_type: str):
+    """Summarize results for a specific model, task, and prompt_type.
+    
+    Writes question count and correct count to a summary file."""
     results_file_path = CLONI_RESULTS_PATH.format(**vars())
     summary_file_path = CLONI_TASK_SUMMARY_PATH.format(**vars())
     question_count = 0
@@ -77,6 +91,7 @@ def summarize_task_results(provider: str, model: str, task: Task, prompt_type: s
 
 
 def evaluate_task(provider: str, model: str, task: Task, prompt_types: List[str] = ["affirmative", "negated"]):
+    """Generate, evaluate, and summarize responses for a specific model and task."""
     for prompt_type in prompt_types:
         summary_file_path = CLONI_TASK_SUMMARY_PATH.format(**vars())
         # Check if task has already been evaluated
@@ -88,6 +103,10 @@ def evaluate_task(provider: str, model: str, task: Task, prompt_types: List[str]
 
 
 def summarize_model_results(provider: str, model: str, prompt_types: List[str] = ["affirmative", "negated"]):
+    """Summarize results for a specific model.
+
+    Writes the results for each task type and prompt type to a single summary file, with a totals row.
+    """
     model_summary_file_path = CLONI_MODEL_SUMMARY_PATH.format(**vars())
     model_totals = {
         "task_id": "totals",
@@ -116,6 +135,10 @@ def summarize_model_results(provider: str, model: str, prompt_types: List[str] =
 
 
 def evaluate_model(provider: str, model: str, prompt_types: List[str] = ["affirmative", "negated"]):
+    """Evaluate a specific model for all tasks and prompt types.
+    
+    Generates, evaluates, and summarizes responses for each task.
+    Writes a summary file for the model."""
     model_summary_file_path = CLONI_MODEL_SUMMARY_PATH.format(**vars())
     # Check if model has already been evaluated
     if not os.path.isfile(model_summary_file_path):
@@ -126,6 +149,7 @@ def evaluate_model(provider: str, model: str, prompt_types: List[str] = ["affirm
 
 
 def create_all_models_summary_csv():
+    """Create a csv file summarizing the performance of all models."""
     csv_file_path = CLONI_ALL_MODEL_PERFORMANCE_PATH
     os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)
     with open(csv_file_path, 'w') as csv_file:
