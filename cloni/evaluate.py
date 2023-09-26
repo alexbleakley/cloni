@@ -6,7 +6,7 @@ import regex as re
 
 from cloni.completions import generate_completion
 from cloni.prepare_data import CLONI_PROMPTS_PATH, CLONI_CONSTRAINTS_PATH
-from cloni.models import Model, MODELS
+from cloni.models import MODELS
 from cloni.tasks import Task, TASKS
 
 
@@ -15,7 +15,7 @@ CLONI_RESPONSES_PATH = "results/{provider}_{model}/{task.task_id:02}_{task.short
 CLONI_RESULTS_PATH = "results/{provider}_{model}/{task.task_id:02}_{task.short_name}/results_{prompt_type}.jsonl"
 CLONI_TASK_SUMMARY_PATH = "results/{provider}_{model}/{task.task_id:02}_{task.short_name}/summary_{prompt_type}.jsonl"
 CLONI_MODEL_SUMMARY_PATH = "results/{provider}_{model}/summary.jsonl"
-CLONI_ALL_MODEL_PERFORMANCE_PATH = "figures/all-model-performance.csv"
+CLONI_ALL_MODEL_PERFORMANCE_PATH = "results/summary_all-models.csv"
 
 
 def get_responses(provider: str, model: str, task: Task, prompt_type: str):
@@ -125,15 +125,15 @@ def evaluate_model(provider: str, model: str, prompt_types: List[str] = ["affirm
     return
 
 
-def create_all_model_performance_csv():
+def create_all_models_summary_csv():
     csv_file_path = CLONI_ALL_MODEL_PERFORMANCE_PATH
     os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)
     with open(csv_file_path, 'w') as csv_file:
         csv_file.write(
             "provider, model, affirmative_correct_ratio, negated_correct_ratio, negation_understanding_ratio\n"
         )
-        for dir in os.listdir(CLONI_RESULTS_ROOT):
-            provider, model = os.fsdecode(dir).split("_")
+        for model in MODELS:
+            provider, model = model.provider, model.model
             model_summary_path = CLONI_MODEL_SUMMARY_PATH.format(**vars())
             if os.path.isfile(model_summary_path):
                 with open(model_summary_path) as model_summary_file:
@@ -169,4 +169,4 @@ if __name__ == "__main__":
     if new_model:
         if os.path.isfile(all_model_performance_file_path):
             os.remove(all_model_performance_file_path)
-        create_all_model_performance_csv()
+        create_all_models_summary_csv()
