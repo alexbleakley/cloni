@@ -71,7 +71,8 @@ def evaluate_responses(provider: str, model: str, task: Task, prompt_type: str):
 def summarize_task_results(provider: str, model: str, task: Task, prompt_type: str):
     """Summarize results for a specific model, task, and prompt_type.
     
-    Writes question count and correct count to a summary file."""
+    Writes question count and correct count to a summary file.
+    """
     results_file_path = CLONI_RESULTS_PATH.format(**vars())
     summary_file_path = CLONI_TASK_SUMMARY_PATH.format(**vars())
     question_count = 0
@@ -138,7 +139,8 @@ def evaluate_model(provider: str, model: str, prompt_types: List[str] = ["affirm
     """Evaluate a specific model for all tasks and prompt types.
     
     Generates, evaluates, and summarizes responses for each task.
-    Writes a summary file for the model."""
+    Writes a summary file for the model.
+    """
     model_summary_file_path = CLONI_MODEL_SUMMARY_PATH.format(**vars())
     # Check if model has already been evaluated
     if not os.path.isfile(model_summary_file_path):
