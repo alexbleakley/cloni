@@ -1,9 +1,25 @@
 # Constraining language models outputs with negated instructions (CLONI)
 
-This repository contains the code, data, and results from my exploration of how well langauge models respond to negated instructions that constrain their responses. A [blog post detailing my findings](TODO) is available on TBD.
+This repository contains the code, data, and results from my exploration of how well langauge models respond to negated instructions that constrain their responses. I summarized my experiment and the key findings in a [blog post](TODO).
 
-To reproduce my results, delete the `data`, `figures`, and `results` directories and their contents, install the requirements from `requirements.txt` into an active python environment, and then run `run-all.sh`.
+## Results
 
-To run the CLONI benchmark against a different model, add the model name to `cloni/models.py` and then run `python3 -m cloni.evaluate`. If the model comes from a provider other than AI21, Anthropic, Cohere, or OpenAI, or is running in a local environment, you will also need to add a new completion function to `cloni/completions.py`.
+The results directory contains the responses, evaluations ("results"), and summaries for each tested model for each of the 10 task types.
 
-If you have questions or feedback, please communicate with me through GitHub Issues.
+## Reproducing and extending the results
+
+### Setup
+1. Install the requirements from `requirements.txt` into an active python environment.
+1. Copy `.env.template` to `.env` and replace `<your API key>` with your API key for each model provider.
+
+### Reproducing the results
+1. Delete the `data`, `figures`, and `results` directories and their contents.
+1. Run `run-all.sh`.
+
+### Evaluating a different model
+1. If the model comes from a provider other than AI21, Anthropic, Cohere, or OpenAI, or is running in a local environment, add a new completion function to `cloni/completions.py` and add it to the `generate_completion` function of that module.
+1. Add the model provider and name to `cloni/models.py`. 
+1. Run `python3 -m cloni.evaluate`.
+
+## Questions and feedback 
+If you have questions or feedback, please communicate with me through GitHub Issues or use the contact form on [my website](https://alexbleakley.com).
