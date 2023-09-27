@@ -1,6 +1,6 @@
 # Constraining language models outputs with negated instructions (CLONI)
 
-This repository contains the code, data, and results from my exploration of how well langauge models respond to negated instructions that constrain their responses. I summarized my experiment and the key findings in a [blog post](TODO).
+This repository contains the code, data, and results from my exploration of how well langauge models respond to negated instructions that constrain their responses. I summarized my experiment and the key findings in a [blog post](https://alexbleakley.com/blog/saying-what-not-to-do).
 
 ## Results
 
